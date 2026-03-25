@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Sentinel Dashboard</title>
+    <link rel="stylesheet" href="/static1/style1.css">
+</head>
+<body>
+
+<div class="container">
+
+    <h1>🛡 Sentinel</h1>
+
+    <!-- CARDS -->
+    <div class="cards">
+        <div class="card">Total<br><b>{{ data.total }}</b></div>
+        <div class="card safe">Safe<br><b>{{ data.safe }}</b></div>
+        <div class="card warn">Suspicious<br><b>{{ data.suspicious }}</b></div>
+        <div class="card danger">Dangerous<br><b>{{ data.dangerous }}</b></div>
+    </div>
+
+    <!-- SINGLE SCAN -->
+    <div class="scan-box">
+        <form action="/scan" method="POST">
+            <input type="text" name="url" placeholder="Enter URL..." required>
+            <button type="submit">SCAN</button>
+        </form>
+    </div>
+
+    <!-- BULK SCAN -->
+    <div class="bulk-box">
+        <h3>Bulk Scan</h3>
+        <form action="/bulk" method="POST">
+            <textarea name="urls" placeholder="Enter multiple URLs (one per line)"></textarea>
+            <button type="submit">Run Bulk Scan</button>
+        </form>
+    </div>
+
+    <!-- RESULT -->
+    {% if result %}
+        <div class="result">
+            Result: {{ result }} | URL: {{ url }}
+        </div>
+    {% endif %}
+
+    <!-- HISTORY -->
+    <div class="history">
+        <h3>History (Saved in Database)</h3>
+        {% for url, result in history %}
+            <p>{{ url }} → {{ result }}</p>
+        {% endfor %}
+    </div>
+
+</div>
+
+</body>
+</html>
